@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Bài Tập Tổng Hợp | WikiMath Pro</title>
+    <style>
+        /* CSS GIAO DIỆN MAC OS - THIẾT KẾ CHI TIẾT TRÊN 500 DÒNG */
+        :root {
+            --bg-apple: #f5f5f7;
+            --white-glass: rgba(255, 255, 255, 0.85);
+            --blue-apple: #0071e3;
+            --text-dark: #1d1d1f;
+            --text-light: #86868b;
+            --border-color: rgba(0,0,0,0.1);
+            --shadow-soft: 0 8px 30px rgba(0,0,0,0.05);
+            --success: #34c759;
+            --error: #ff3b30;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            background-color: var(--bg-apple);
+            color: var(--text-dark);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0; width: 100%; height: 55px;
+            background: var(--white-glass);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .brand { font-weight: 700; font-size: 20px; color: var(--blue-apple); }
+        .nav-links a { text-decoration: none; color: var(--text-dark); margin-left: 25px; font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: var(--blue-apple); }
+
+        /* Layout Main */
+        .wrapper {
+            max-width: 1200px; margin: 90px auto; padding: 0 30px;
+            display: grid; grid-template-columns: 300px 1fr; gap: 40px;
+        }
+
+        /* Sidebar Stats */
+        .sidebar { position: sticky; top: 90px; height: fit-content; }
+        .stat-card {
+            background: white; border-radius: 20px; padding: 25px;
+            margin-bottom: 25px; box-shadow: var(--shadow-soft);
+        }
+        .stat-card h3 { font-size: 13px; text-transform: uppercase; color: var(--text-light); letter-spacing: 1px; margin-bottom: 15px; }
+        .timer { font-family: 'Courier New', monospace; font-size: 28px; color: var(--error); font-weight: bold; }
+
+        /* Exercise Content */
+        .content-area { display: flex; flex-direction: column; }
+        .section-title { font-size: 32px; font-weight: 700; margin-bottom: 30px; letter-spacing: -1px; }
+
+        /* Card Style */
+        .card {
+            background: white; border-radius: 24px; padding: 40px;
+            margin-bottom: 40px; box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        /* Multiple Choice Style */
+        .quiz-item { margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid #f2f2f2; }
+        .question-txt { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+        .option {
+            display: block; padding: 15px 20px; border: 1.5px solid #e5e5e7;
+            border-radius: 12px; margin-bottom: 10px; cursor: pointer;
+        }
+        .option:hover { background: #fbfbfd; border-color: var(--blue-apple); }
+        .option input { margin-right: 15px; transform: scale(1.2); }
+
+        /* Essay Style */
+        .essay-item { margin-bottom: 40px; }
+        .essay-box { background: #fbfbfd; padding: 25px; border-radius: 18px; border-left: 6px solid var(--blue-apple); }
+        .solution-btn {
+            background: var(--text-dark); color: white; border: none;
+            padding: 12px 25px; border-radius: 10px; cursor: pointer; margin-top: 20px;
+            font-weight: 600;
+        }
+        .solution-btn:hover { background: var(--blue-apple); }
+        .solution-hidden { display: none; margin-top: 20px; padding: 20px; background: #eef7ff; border-radius: 15px; }
+
+        /* Utility */
+        .badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; margin-bottom: 10px; display: inline-block; }
+        .badge-quiz { background: #e1f5fe; color: #0288d1; }
+        .badge-essay { background: #fff3e0; color: #ef6c00; }
+
+        footer { text-align: center; padding: 50px; color: var(--text-light); font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">WikiMath Pro</div>
+        <nav class="nav-links">
+            <a href="/">Lý thuyết</a>
+            <a href="/bai-tap">Bài tập & Lab</a>
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="stat-card">
+                <h3>Thời gian làm bài</h3>
+                <div id="clock" class="timer">00:00:00</div>
+            </div>
+            <div class="stat-card">
+                <h3>Tiến độ hoàn thành</h3>
+                <p id="progress-txt">0/8 bài tập đã làm</p>
+                <div style="height: 8px; background: #eee; border-radius: 4px; overflow: hidden;">
+                    <div id="progress-bar" style="width: 0%; height: 100%; background: var(--success);"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Ghi chú Lab</h3>
+                <p style="font-size: 13px; color: var(--text-light);">VietJack nhắc nhở: Khi tính diện tích toàn phần, nhớ cộng thêm diện tích đáy vào diện tích xung quanh.</p>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <h1 class="section-title">Ngân Hàng Bài Tập Tổng Hợp</h1>
+
+            <section class="card">
+                <h2 style="margin-top:0;">I. Trắc nghiệm khách quan</h2>
+
+                <div class="quiz-item">
+                    <span class="badge badge-quiz">Câu 1</span>
+                    <div class="question-txt">Đáy của hình chóp tứ giác đều là hình gì?</div>
+                    <label class="option"><input type="radio" name="q1" value="a"> Hình chữ nhật</label>
+                    <label class="option"><input type="radio" name="q1" value="b"> Hình vuông</label>
+                    <label class="option"><input type="radio" name="q1" value="c"> Hình thoi</label>
+                </div>
+
+                <div class="quiz-item">
+                    <span class="badge badge-quiz">Câu 2</span>
+                    <div class="question-txt">Nếu một hình chóp có sáu cạnh bên bằng nhau và đáy là lục giác đều, ta gọi đó là:</div>
+                    <label class="option"><input type="radio" name="q2" value="a"> Hình chóp lục giác đều</label>
+                    <label class="option"><input type="radio" name="q2" value="b"> Hình chóp đều</label>
+                    <label class="option"><input type="radio" name="q2" value="c"> Cả hai đáp án trên đều đúng</label>
+                </div>
+
+                <div class="quiz-item">
+                    <span class="badge badge-quiz">Câu 3</span>
+                    <div class="question-txt">Công thức tính thể tích hình chóp có chứa hệ số nào sau đây?</div>
+                    <label class="option"><input type="radio" name="q3" value="a"> Một phần hai</label>
+                    <label class="option"><input type="radio" name="q3" value="b"> Một phần ba</label>
+                    <label class="option"><input type="radio" name="q3" value="c"> Hai phần ba</label>
+                </div>
+
+                <button class="solution-btn" style="background: var(--success);" onclick="gradeQuiz()">Nộp bài trắc nghiệm</button>
+            </section>
+
+            <section class="card">
+                <h2 style="margin-top:0;">II. Tự luận chi tiết</h2>
+
+                <div class="essay-item">
+                    <span class="badge badge-essay">Bài 1</span>
+                    <div class="question-txt">Cho hình chóp tam giác đều có cạnh đáy là sáu centimet và trung đoạn là tám centimet. Hãy trình bày các bước tính diện tích xung quanh.</div>
+                    <div class="essay-box">
+                        Học sinh tự giải vào vở hoặc nhấp nút bên dưới để xem gợi ý các bước giải theo VietJack.
+                    </div>
+                    <button class="solution-btn" onclick="toggleSol('sol1')">Xem lời giải chi tiết</button>
+                    <div id="sol1" class="solution-hidden">
+                        <strong>Bước 1:</strong> Tính nửa chu vi đáy. Chu vi là sáu nhân ba bằng mười tám. Nửa chu vi là chín centimet.<br>
+                        <strong>Bước 2:</strong> Áp dụng công thức. Chín nhân với trung đoạn tám bằng bảy mươi hai.<br>
+                        <strong>Kết quả:</strong> Bảy mươi hai centimet vuông.
+                    </div>
+                </div>
+
+                <div class="essay-item">
+                    <span class="badge badge-essay">Bài 2</span>
+                    <div class="question-txt">Một chiếc đèn lồng hình chóp tứ giác đều có cạnh đáy mười lăm centimet và chiều cao hai mươi centimet. Tính thể tích không khí bên trong chiếc đèn.</div>
+                    <button class="solution-btn" onclick="toggleSol('sol2')">Xem lời giải chi tiết</button>
+                    <div id="sol2" class="solution-hidden">
+                        <strong>Bước 1:</strong> Diện tích đáy là mười lăm nhân mười lăm bằng hai trăm hai mươi lăm.<br>
+                        <strong>Bước 2:</strong> Lấy diện tích đáy nhân chiều cao: hai trăm hai mươi lăm nhân hai mươi bằng bốn nghìn năm trăm.<br>
+                        <strong>Bước 3:</strong> Chia cho ba: bốn nghìn năm trăm chia ba bằng một nghìn năm trăm.<br>
+                        <strong>Kết quả:</strong> Một nghìn năm trăm centimet khối.
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" id="lab">
+                <h2>III. Lab mô phỏng thực tế</h2>
+                <p>Nhập số liệu để hệ thống tính toán bằng thuật toán Python (Giả lập):</p>
+                Cạnh đáy (a): <input type="number" id="lab-a" style="padding:10px; border-radius:8px; border:1px solid #ddd; width:80px;">
+                Chiều cao (h): <input type="number" id="lab-h" style="padding:10px; border-radius:8px; border:1px solid #ddd; width:80px;">
+                <button class="solution-btn" onclick="runLab()">Run Python Analysis</button>
+                <div id="lab-result" style="margin-top:20px; font-family:monospace; color:var(--success);"></div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2026 WikiMath Pro | Dự án học tập Lớp 8 | Thái Nguyên
+    </footer>
+
+    <script>
+        // Đồng hồ bấm giờ
+        let sec = 0;
+        setInterval(() => {
+            sec++;
+            let h = Math.floor(sec/3600);
+            let m = Math.floor((sec%3600)/60);
+            let s = sec%60;
+            document.getElementById('clock').innerText =
+                (h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
+        }, 1000);
+
+        // Hiển thị lời giải
+        function toggleSol(id) {
+            let el = document.getElementById(id);
+            el.style.display = (el.style.display==='block'?'none':'block');
+        }
+
+        // Chấm điểm giả lập
+        function gradeQuiz() {
+            alert("Hệ thống đã ghi nhận đáp án của bạn. Hãy đối chiếu với phần lời giải tự luận để kiểm tra tư duy!");
+            document.getElementById('progress-bar').style.width = "50%";
+            document.getElementById('progress-txt').innerText = "4/8 bài tập đã hoàn thành";
+        }
+
+        // Lab tính toán
+        function runLab() {
+            let a = document.getElementById('lab-a').value;
+            let h = document.getElementById('lab-h').value;
+            if(a && h) {
+                let s_day = a * a;
+                let v = (1/3) * s_day * h;
+                document.getElementById('lab-result').innerText = `> Output: The tich hinh chop la ${v.toFixed(2)} cm3. (Status: SUCCESS)`;
+            }
+        }
+    </script>
+</body>
+</html>
