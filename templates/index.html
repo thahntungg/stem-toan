@@ -3,364 +3,694 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WikiMath Pro | Chuyên Đề Hình Học Không Gian Lớp 8</title>
+    <title>Tổng hợp - Hệ Thống Kiến Thức Hình Chóp lớp 8 Toàn Diện</title>
     <style>
-        /* HỆ THỐNG GIAO DIỆN PHONG CÁCH MAC OS - DARK MODE OPTIONAL
-           FILE CODE ĐƯỢC THIẾT KẾ CHI TIẾT ĐỂ ĐẠT ĐỘ DÀI TRÊN 400 DÒNG
-        */
+        /* ==========================================================================
+           HỆ THỐNG THIẾT KẾ (DESIGN SYSTEM) - PHIÊN BẢN ULTIMATE
+           TÁC GIẢ: TÙNG
+           ========================================================================== */
+
         :root {
-            --trang-nen: #f5f5f7;
-            --xanh-apple: #0071e3;
-            --chu-chinh: #1d1d1f;
-            --chu-phu: #86868b;
-            --the-trang: rgba(255, 255, 255, 0.9);
-            --vien-the: rgba(0, 0, 0, 0.1);
-            --bong-do: 0 8px 30px rgba(0,0,0,0.04);
-            --canh-bao: #ff3b30;
-            --thanh-cong: #34c759;
+            /* Bảng màu chính */
+            --color-primary: #0071e3;
+            --color-secondary: #2997ff;
+            --color-success: #34c759;
+            --color-warning: #ff9500;
+            --color-danger: #ff3b30;
+
+            /* Bảng màu nền và chữ */
+            --bg-body: #f5f5f7;
+            --bg-card: #ffffff;
+            --bg-highlight: #fbfbfd;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --border-color: #d2d2d7;
+
+            /* Thông số giao diện */
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --transition-slow: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            --transition-fast: all 0.3s ease;
         }
 
-        /* Tối ưu hóa font chữ hệ thống */
+        /* --------------------------------------------------------------------------
+           RESET & NỀN TẢNG
+           -------------------------------------------------------------------------- */
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
-            transition: all 0.4s ease;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background-color: var(--trang-nen);
-            color: var(--chu-chinh);
-            margin: 0;
-            line-height: 1.8;
+        html {
             scroll-behavior: smooth;
         }
 
-        /* Thanh điều hướng mờ đục (Glassmorphism) */
-        nav.thanh-dieu-huong {
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-size: 18px;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --------------------------------------------------------------------------
+           HIỆU ỨNG CHUỘT (CUSTOM CURSOR)
+           -------------------------------------------------------------------------- */
+        #ultimate-cursor {
             position: fixed;
             top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--color-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0.25;
+            transform: translate(-50%, -50%);
+            transition: transform 0.05s linear;
+            mix-blend-mode: multiply;
+        }
+
+        /* --------------------------------------------------------------------------
+           NAVIGATION BAR (THANH ĐIỀU HƯỚNG KÍNH MỜ)
+           -------------------------------------------------------------------------- */
+        .glass-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 52px;
-            background: var(--the-trang);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 9999;
-            border-bottom: 1px solid var(--vien-the);
+            height: 65px;
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 9999;
         }
 
-        nav.thanh-dieu-huong a {
-            text-decoration: none;
-            color: var(--chu-chinh);
-            margin: 0 25px;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        nav.thanh-dieu-huong a:hover {
-            color: var(--xanh-apple);
-        }
-
-        /* Cấu trúc Layout chính */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px;
+        .glass-nav ul {
             display: flex;
-            gap: 40px;
-        }
-
-        /* Menu Mục Lục Bên Trái */
-        .muc-luc-phu {
-            flex: 0 0 300px;
-            position: sticky;
-            top: 100px;
-            height: fit-content;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--bong-do);
-        }
-
-        .muc-luc-phu h2 {
-            font-size: 13px;
-            text-transform: uppercase;
-            color: var(--chu-phu);
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-        }
-
-        .muc-luc-phu ul {
             list-style: none;
-            padding: 0;
-        }
-
-        .muc-luc-phu li {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f2f2f2;
-        }
-
-        .muc-luc-phu a {
-            text-decoration: none;
-            color: var(--chu-chinh);
-            font-size: 15px;
-            display: block;
-        }
-
-        .muc-luc-phu a:hover {
-            color: var(--xanh-apple);
-            transform: translateX(5px);
-        }
-
-        /* Khu vực nội dung chi tiết */
-        .noi-dung-chinh {
-            flex: 1;
-        }
-
-        .the-bai-hoc {
-            background: white;
-            border-radius: 28px;
-            padding: 50px;
-            margin-bottom: 40px;
-            box-shadow: var(--bong-do);
-        }
-
-        h1.tieu-de-lon {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -1.5px;
-        }
-
-        .mo-dau {
-            font-size: 20px;
-            color: var(--chu-phu);
-            margin-bottom: 50px;
-        }
-
-        h2.tieu-de-nho {
-            font-size: 30px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            display: flex;
+            gap: 40px;
             align-items: center;
         }
 
-        h2.tieu-de-nho::before {
-            content: "";
-            width: 6px;
-            height: 30px;
-            background: var(--xanh-apple);
-            margin-right: 15px;
-            border-radius: 3px;
+        .glass-nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: var(--transition-fast);
         }
 
-        .doan-van {
+        .glass-nav a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Nút Bài tập trên Nav */
+        .nav-btn-highlight {
+            background-color: var(--color-primary);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0, 113, 227, 0.3);
+        }
+
+        .nav-btn-highlight:hover {
+            background-color: var(--color-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 113, 227, 0.4);
+        }
+
+        /* --------------------------------------------------------------------------
+           HERO SECTION (PHẦN MỞ ĐẦU) & BUTTONS
+           -------------------------------------------------------------------------- */
+        .hero-section {
+            width: 100%;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, #ffffff 0%, #f5f5f7 100%);
+        }
+
+        .hero-title {
+            font-size: 68px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #0071e3 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        /* Cụm nút bấm Action */
+        .action-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 16px 36px;
+            border-radius: 50px;
             font-size: 17px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-secondary);
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 113, 227, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-main);
+            background-color: var(--text-main);
+            color: #ffffff;
+        }
+
+        /* --------------------------------------------------------------------------
+           MAIN LAYOUT & CARDS (BỐ CỤC CHÍNH)
+           -------------------------------------------------------------------------- */
+        .content-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        .knowledge-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 60px 80px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.03);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-slow);
+        }
+
+        .knowledge-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typography */
+        .badge-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: rgba(0, 113, 227, 0.1);
+            color: var(--color-primary);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .section-heading {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 35px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .sub-heading {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 45px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-body);
+            padding-bottom: 10px;
+        }
+
+        .paragraph-text {
+            font-size: 19px;
+            color: #333333;
             margin-bottom: 25px;
             text-align: justify;
         }
 
-        /* Bảng phong cách Wikipedia */
-        .bang-du-lieu {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
+        /* Định dạng list & Điểm nhấn */
+        .theory-list {
+            list-style: none;
+            margin-bottom: 30px;
         }
 
-        .bang-du-lieu th, .bang-du-lieu td {
-            padding: 18px;
-            border: 1px solid #e5e5e7;
-            text-align: left;
+        .theory-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 15px;
+            font-size: 19px;
         }
 
-        .bang-du-lieu th {
-            background-color: #fbfbfd;
-            font-weight: 600;
-            width: 30%;
+        .theory-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
         }
 
-        /* Hộp công thức không dùng ký tự toán học */
-        .hop-cong-thuc {
-            background: #f1f8ff;
-            border-radius: 20px;
+        .highlight-box {
+            background-color: var(--bg-highlight);
+            border-radius: var(--radius-md);
             padding: 35px;
             margin: 40px 0;
-            border: 1px solid #d0e7ff;
+            border: 1px solid var(--border-color);
+            border-left: 8px solid var(--color-primary);
         }
 
-        .ten-cong-thuc {
+        .highlight-box.warning {
+            border-left-color: var(--color-warning);
+            background-color: #fffaf0;
+        }
+
+        .highlight-box.success {
+            border-left-color: var(--color-success);
+            background-color: #f2faf4;
+        }
+
+        /* Hộp Công Thức */
+        .formula-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .formula-item {
+            background: linear-gradient(145deg, #ffffff, #f0f7ff);
+            border: 1px solid #cce4ff;
+            border-radius: var(--radius-sm);
+            padding: 25px 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .formula-title {
+            font-size: 16px;
+            text-transform: uppercase;
             font-weight: 700;
-            color: var(--xanh-apple);
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .formula-math {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--color-primary);
             margin-bottom: 15px;
-            display: block;
-            font-size: 18px;
+            letter-spacing: 2px;
         }
 
-        .loi-dien-giai {
-            font-family: "SF Mono", "Monaco", monospace;
-            font-size: 18px;
-            color: #0052a3;
-            background: rgba(0,0,0,0.03);
-            padding: 15px;
-            border-radius: 10px;
+        .formula-desc {
+            font-size: 16px;
+            color: #555;
+            border-top: 1px dashed #cce4ff;
+            padding-top: 15px;
         }
 
-        /* Footer chi tiết */
-        .footer-site {
+        /* --------------------------------------------------------------------------
+           CHUYỂN TRANG BÀI TẬP (BOTTOM CTA BANNER)
+           -------------------------------------------------------------------------- */
+        .cta-banner {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            background: linear-gradient(135deg, #0071e3 0%, #4facfe 100%);
+            border-radius: var(--radius-lg);
+            padding: 60px;
             text-align: center;
-            padding: 60px 20px;
-            background: white;
-            border-top: 1px solid var(--vien-the);
-            margin-top: 100px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-slow);
         }
 
-        /* Animation khi cuộn trang */
-        .fade-in {
-            animation: hien-ra 1s ease-out;
+        .cta-banner.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes hien-ra {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .cta-banner h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
         }
 
-        /* Responsive cho di động */
-        @media (max-width: 900px) {
-            .container { flex-direction: column; }
-            .muc-luc-phu { position: relative; top: 0; flex: none; width: 100%; }
-            .the-bai-hoc { padding: 30px; }
+        .cta-banner p {
+            font-size: 20px;
+            margin-bottom: 35px;
+            opacity: 0.9;
         }
+
+        .btn-white {
+            background-color: white;
+            color: var(--color-primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-white:hover {
+            background-color: #f5f5f7;
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        /* --------------------------------------------------------------------------
+           FOOTER (CHÂN TRANG MỞ RỘNG)
+           -------------------------------------------------------------------------- */
+        .ultimate-footer {
+            background-color: var(--bg-card);
+            padding: 100px 20px 50px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--bg-body);
+            padding-top: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 <body>
 
-    <nav class="thanh-dieu-huong">
-        <a href="/">Hệ Thống Lý Thuyết</a>
-        <a href="/bai-tap">Ngân Hàng Bài Tập</a>
-        <a href="#ve-chung-toi">Thông Tin Web</a>
+    <div id="ultimate-cursor"></div>
+
+    <nav class="glass-nav">
+        <ul>
+            <li><a href="/">Trang Chủ</a></li>
+            <li><a href="#ly-thuyet-bai-1">Chóp Tam Giác</a></li>
+            <li><a href="#ly-thuyet-bai-2">Chóp Tứ Giác</a></li>
+            <li><a href="#tong-hop-cong-thuc">Công Thức</a></li>
+            <li><a href="baitap.html" class="nav-btn-highlight">📝 Bài Tập</a></li>
+        </ul>
     </nav>
 
-    <div class="container fade-in">
-        <aside class="muc-luc-phu">
-            <h2>Mục lục chuyên đề</h2>
-            <ul>
-                <li><a href="#phan-1">1. Khái niệm cơ bản</a></li>
-                <li><a href="#phan-2">2. Chóp tam giác đều</a></li>
-                <li><a href="#phan-3">3. Chóp tứ giác đều</a></li>
-                <li><a href="#phan-4">4. Cách tính diện tích</a></li>
-                <li><a href="#phan-5">5. Cách tính thể tích</a></li>
-                <li><a href="#phan-6">6. Phân tích lỗi sai</a></li>
-            </ul>
-        </aside>
+    <header class="hero-section">
+        <h1 class="hero-title">Đại Số & Hình Học 8</h1>
+        <p class="hero-subtitle">Hệ thống hóa toàn bộ kiến thức Bài 1 & Bài 2: Khối chóp đều. Phân tích chi tiết định nghĩa, cấu trúc, cách vẽ hình và toàn tập công thức tính toán.</p>
 
-        <main class="noi-dung-chinh">
-            <div class="the-bai-hoc">
-                <h1 class="tieu-de-lon">Hình Chóp Đều</h1>
-                <p class="mo-dau">Tài liệu tổng hợp từ Wikipedia và hệ thống giáo dục VietJack dành cho lớp 8.</p>
+        <div class="action-group">
+            <a href="#ly-thuyet-bai-1" class="btn btn-outline">Đọc Lý Thuyết</a>
+            <a href="baitap.html" class="btn btn-primary">Thực Hành Bài Tập →</a>
+        </div>
+    </header>
 
-                <section id="phan-1">
-                    <h2 class="tieu-de-nho">Khái niệm và Định nghĩa</h2>
-                    <p class="doan-van">
-                        Hình chóp đều là một khối đa diện đặc biệt trong hình học không gian. Một hình chóp được công nhận là hình chóp đều khi và chỉ khi mặt đáy của nó là một đa giác đều và các cạnh bên của nó có độ dài bằng nhau. Điều này dẫn đến việc chân đường cao hạ từ đỉnh của hình chóp sẽ trùng khớp hoàn toàn với tâm của đa giác đáy.
-                    </p>
-                    <p class="doan-van">
-                        Các đa giác đều thường gặp nhất trong chương trình lớp 8 bao gồm tam giác đều (ba cạnh bằng nhau) và hình vuông (bốn cạnh bằng nhau).
-                    </p>
-                </section>
+    <main class="content-container">
 
-                <section id="phan-2">
-                    <h2 class="tieu-de-nho">Hình Chóp Tam Giác Đều (Bài 38)</h2>
-                    <p class="doan-van">
-                        Đây là hình chóp có cấu tạo mặt đáy là một tam giác đều. Đặc điểm nhận dạng chi tiết theo tài liệu VietJack bao gồm:
-                    </p>
-                    <table class="bang-du-lieu">
-                        <tr>
-                            <th>Thành phần</th>
-                            <th>Đặc điểm cấu tạo</th>
-                        </tr>
-                        <tr>
-                            <td>Mặt đáy</td>
-                            <td>Là một tam giác có ba cạnh bằng nhau và ba góc bằng nhau.</td>
-                        </tr>
-                        <tr>
-                            <td>Mặt bên</td>
-                            <td>Bao gồm ba tam giác cân có chung đỉnh và hoàn toàn bằng nhau.</td>
-                        </tr>
-                        <tr>
-                            <td>Trung đoạn</td>
-                            <td>Đoạn thẳng nối từ đỉnh xuống trung điểm của một cạnh đáy.</td>
-                        </tr>
-                    </table>
-                </section>
+        <section id="ly-thuyet-bai-1" class="knowledge-card">
+            <span class="badge-tag">Chương IV - Bài 1</span>
+            <h2 class="section-title section-heading">Hình Chóp Tam Giác Đều</h2>
 
-                <section id="phan-3">
-                    <h2 class="tieu-de-nho">Hình Chóp Tứ Giác Đều (Bài 39)</h2>
-                    <p class="doan-van">
-                        Về cơ bản, hình chóp tứ giác đều có các tính chất tương tự như hình chóp tam giác đều nhưng có mặt đáy rộng hơn và nhiều cạnh hơn.
-                    </p>
-                    <div class="hop-cong-thuc">
-                        <span class="ten-cong-thuc">Đặc điểm quan trọng:</span>
-                        <div class="loi-dien-giai">
-                            Giao điểm của hai đường chéo mặt đáy chính là chân đường cao hạ từ đỉnh S xuống. Đường thẳng SO này vuông góc với tất cả các đường thẳng nằm trong mặt phẳng đáy.
-                        </div>
-                    </div>
-                </section>
+            <h3 class="sub-heading">1. Định nghĩa chi tiết</h3>
+            <p class="paragraph-text">
+                Hình chóp tam giác đều là một trong những khối đa diện cơ bản nhất trong không gian. Theo định nghĩa chuẩn xác nhất, đây là hình chóp thỏa mãn đồng thời hai điều kiện vô cùng khắt khe: mặt đáy của nó bắt buộc phải là một tam giác đều, và tất cả các mặt bên của nó phải là những tam giác cân hoàn toàn bằng nhau, cùng chung nhau một đỉnh duy nhất.
+            </p>
 
-                <section id="phan-4">
-                    <h2 class="tieu-de-nho">Công thức Diện tích xung quanh</h2>
-                    <p class="doan-van">
-                        Trong chương trình lớp 8, chúng ta không dùng các ký hiệu toán học phức tạp để diễn đạt công thức này nhằm tránh nhầm lẫn. Bạn hãy nhớ quy tắc bằng lời sau đây:
-                    </p>
-                    <div class="hop-cong-thuc" style="background: #fff8f1; border-color: #ffd8a8;">
-                        <span class="ten-cong-thuc" style="color: #e67e22;">Phát biểu bằng lời:</span>
-                        <div class="loi-dien-giai" style="color: #a65d00;">
-                            Diện tích xung quanh bằng Nửa chu vi đáy nhân với Trung đoạn.
-                        </div>
-                    </div>
-                    <p class="doan-van">
-                        Để tính diện tích toàn phần, ta chỉ cần lấy kết quả diện tích xung quanh vừa tìm được cộng thêm diện tích của một mặt đáy.
-                    </p>
-                </section>
-
-                <section id="phan-5">
-                    <h2 class="tieu-de-nho">Công thức Thể tích</h2>
-                    <p class="doan-van">
-                        Thể tích của hình chóp là một khái niệm cực kỳ quan trọng trong thực tế, ví dụ như để tính sức chứa của một kim tự tháp hoặc một cái lều trại hình chóp.
-                    </p>
-                    <div class="hop-cong-thuc" style="background: #f3f0ff; border-color: #d1c4e9;">
-                        <span class="ten-cong-thuc" style="color: #673ab7;">Phát biểu bằng lời:</span>
-                        <div class="loi-dien-giai" style="color: #4527a0;">
-                            Thể tích bằng Một phần ba của tích Diện tích đáy nhân với Chiều cao.
-                        </div>
-                    </div>
-                </section>
-
-                <section id="phan-6">
-                    <h2 class="tieu-de-nho">Những sai lầm cần lưu ý</h2>
-                    <p class="doan-van">
-                        Theo thống kê từ các bài giải trên VietJack, học sinh lớp 8 thường mắc các lỗi sau:
-                    </p>
-                    <ul>
-                        <li>Nhầm lẫn giữa chiều cao (SO) và trung đoạn (đường cao của mặt bên).</li>
-                        <li>Quên không chia ba khi tính thể tích khối chóp.</li>
-                        <li>Dùng nhầm chu vi đáy thay vì nửa chu vi đáy khi tính diện tích xung quanh.</li>
-                    </ul>
-                </section>
+            <div class="highlight-box">
+                <h4 style="font-size: 20px; margin-bottom: 15px;">Phân tích cấu trúc (Ví dụ Khối chóp S.ABC):</h4>
+                <ul class="theory-list">
+                    <li><strong>Đỉnh chóp:</strong> Điểm S nằm ngoài mặt phẳng chứa tam giác ABC.</li>
+                    <li><strong>Mặt đáy:</strong> Tam giác ABC có 3 cạnh bằng nhau (AB = BC = CA) và 3 góc bằng 60 độ.</li>
+                    <li><strong>Các mặt bên:</strong> Gồm 3 tam giác SAB, SBC, SCA. Cả 3 đều là tam giác cân tại đỉnh S.</li>
+                    <li><strong>Cạnh bên:</strong> Các đoạn thẳng SA, SB, SC có độ dài bằng nhau tuyệt đối.</li>
+                    <li><strong>Đường cao (h):</strong> Kẻ từ S vuông góc xuống mặt đáy. Chân đường cao này trùng khít với trọng tâm của tam giác đều ABC.</li>
+                    <li><strong>Trung đoạn (d):</strong> Là đường cao của bất kỳ mặt bên nào (ví dụ đoạn nối từ S xuống trung điểm của BC).</li>
+                </ul>
             </div>
-        </main>
-    </div>
 
-    <footer class="footer-site">
-        <p>&copy; 2026 Hệ thống tài liệu số lớp 8 | Tùng và Cộng sự</p>
-        <p>Phát triển dựa trên nền tảng GitHub và Render Hosting</p>
-        <p style="font-size: 11px; margin-top: 20px;">Trang web tuân thủ các quy tắc hiển thị giao diện macOS mượt mà trên mọi trình duyệt hiện đại.</p>
+            <h3 class="sub-heading">2. Hướng dẫn cách vẽ chuẩn xác</h3>
+            <p class="paragraph-text">Để biểu diễn một không gian 3 chiều lên mặt phẳng 2 chiều của tờ giấy, chúng ta cần tuân thủ các bước vẽ phối cảnh sau đây:</p>
+            <div class="highlight-box warning">
+                <ul class="theory-list" style="margin-bottom: 0;">
+                    <li><strong>Bước 1:</strong> Vẽ mặt đáy là tam giác ABC. (Lưu ý: Không vẽ thành tam giác đều thật sự mà vẽ dưới dạng tam giác thường để tạo chiều sâu, nhưng ngầm hiểu nó là tam giác đều). Nét đứt cho cạnh khuất ở phía sau.</li>
+                    <li><strong>Bước 2:</strong> Vẽ hai đường trung tuyến của tam giác đáy để xác định giao điểm H (trọng tâm).</li>
+                    <li><strong>Bước 3:</strong> Từ trọng tâm H, dựng một đường thẳng đứng (nét đứt) lên phía trên. Lấy một điểm S bất kỳ trên đường thẳng đó làm đỉnh chóp.</li>
+                    <li><strong>Bước 4:</strong> Dùng thước kẻ nối điểm S với 3 đỉnh A, B, C ở dưới đáy. Tẩy đi các nét thừa và hoàn thiện nét liền/nét đứt.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="ly-thuyet-bai-2" class="knowledge-card">
+            <span class="badge-tag">Chương IV - Bài 2</span>
+            <h2 class="section-title section-heading">Hình Chóp Tứ Giác Đều</h2>
+
+            <h3 class="sub-heading">1. Định nghĩa & Cấu trúc</h3>
+            <p class="paragraph-text">
+                Nâng cấp độ phức tạp lên một bậc, hình chóp tứ giác đều là mô hình đại diện cho các Kim tự tháp Ai Cập vĩ đại. Định nghĩa của nó tương tự hình chóp tam giác đều, nhưng mặt đáy đã được thay thế bằng một hình vuông.
+            </p>
+
+            <div class="highlight-box success">
+                <h4 style="font-size: 20px; margin-bottom: 15px;">Các yếu tố cấu thành (Ví dụ S.ABCD):</h4>
+                <ul class="theory-list" style="margin-bottom: 0;">
+                    <li><strong>Tổng số mặt:</strong> Có 5 mặt (1 mặt đáy hình vuông và 4 mặt bên tam giác cân).</li>
+                    <li><strong>Tổng số cạnh:</strong> Có 8 cạnh (4 cạnh đáy bằng nhau và 4 cạnh bên bằng nhau).</li>
+                    <li><strong>Tổng số đỉnh:</strong> Có 5 đỉnh.</li>
+                    <li><strong>Tâm của đáy:</strong> Giao điểm O của hai đường chéo AC và BD trong hình vuông đáy.</li>
+                    <li><strong>Đường cao (h):</strong> Đoạn SO vuông góc với mặt phẳng (ABCD).</li>
+                </ul>
+            </div>
+
+            <h3 class="sub-heading">2. Sự khác biệt cốt lõi (Nhận xét)</h3>
+            <p class="paragraph-text">
+                Một nhận xét cực kỳ quan trọng từ sách giáo khoa: Vì tất cả các mặt bên của hình chóp tứ giác đều là những tam giác cân hoàn toàn bằng nhau, nên các đường cao xuất phát từ đỉnh S của những tam giác này (tức là các trung đoạn) đều có độ dài bằng nhau. Điều này giúp việc tính toán diện tích xung quanh trở nên vô cùng đơn giản.
+            </p>
+        </section>
+
+        <section id="tong-hop-cong-thuc" class="knowledge-card">
+            <span class="badge-tag">Công Thức Tổng Quát</span>
+            <h2 class="section-title section-heading">Hệ Thống Công Thức Tính Toán</h2>
+
+            <p class="paragraph-text">
+                Dưới đây là bộ 3 công thức "xương sống" áp dụng chung cho CẢ hình chóp tam giác đều VÀ hình chóp tứ giác đều. Hãy đọc kỹ phần giải nghĩa các đại lượng để không bị nhầm lẫn trong quá trình thay số.
+            </p>
+
+            <div class="formula-container">
+                <div class="formula-item">
+                    <div class="formula-title">1. Công thức tính Diện Tích Xung Quanh</div>
+                    <div class="formula-math">S(xq) = p × d</div>
+                    <div class="formula-desc">
+                        <strong>Giải nghĩa:</strong> Diện tích xung quanh của hình chóp đều bằng tích của nửa chu vi mặt đáy với độ dài của trung đoạn.<br>
+                        - <strong>p:</strong> Nửa chu vi mặt đáy. (Nếu đáy là tam giác cạnh a thì p = 3a/2. Nếu đáy là hình vuông cạnh a thì p = 4a/2 = 2a).<br>
+                        - <strong>d:</strong> Trung đoạn (Đường cao của mặt bên tam giác cân).
+                    </div>
+                </div>
+
+                <div class="formula-item">
+                    <div class="formula-title">2. Công thức tính Diện Tích Toàn Phần</div>
+                    <div class="formula-math">S(tp) = S(xq) + S(đáy)</div>
+                    <div class="formula-desc">
+                        <strong>Giải nghĩa:</strong> Diện tích toàn phần là tổng diện tích của tất cả các mặt bao quanh hình chóp. Ta lấy diện tích xung quanh (đã tính ở trên) cộng thêm với diện tích của mặt đáy nằm dưới cùng.<br>
+                        - Đối với chóp tam giác: Tính diện tích tam giác đều.<br>
+                        - Đối với chóp tứ giác: Tính diện tích hình vuông (Cạnh nhân Cạnh).
+                    </div>
+                </div>
+
+                <div class="formula-item">
+                    <div class="formula-title">3. Công thức tính Thể Tích Khối Chóp</div>
+                    <div class="formula-math">V = (1/3) × S(đáy) × h</div>
+                    <div class="formula-desc">
+                        <strong>Giải nghĩa:</strong> Thể tích của hình chóp đều bằng một phần ba tích của diện tích mặt đáy với chiều cao của hình chóp đó.<br>
+                        - <strong>S(đáy):</strong> Diện tích mặt đáy.<br>
+                        - <strong>h:</strong> Chiều cao của hình chóp (Khoảng cách từ đỉnh rơi thẳng vuông góc xuống tâm của đáy). Lưu ý tuyệt đối: Không được nhầm lẫn giữa chiều cao h và trung đoạn d.
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box warning" style="margin-top: 50px;">
+                <h4 style="font-size: 20px; margin-bottom: 10px;">Ví dụ áp dụng thực tế:</h4>
+                <p class="paragraph-text" style="margin-bottom: 0;">
+                    Cho hình chóp tứ giác đều S.ABCD có cạnh đáy bằng 10cm, chiều cao hình chóp bằng 12cm. Tính thể tích.<br>
+                    <strong>Giải:</strong><br>
+                    - Diện tích đáy (hình vuông): S = 10 × 10 = 100 (cm²).<br>
+                    - Thể tích: V = 1/3 × 100 × 12 = 400 (cm³).
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <section class="cta-banner knowledge-card">
+        <h2>Đã Nắm Vững Lý Thuyết?</h2>
+        <p>Hãy chuyển sang phần Luyện tập để áp dụng công thức vào các dạng bài tập thực tế chuẩn VietJack nhé.</p>
+        <a href="baitap.html" class="btn btn-white">Mở Trang Bài Tập Kèm Lời Giải</a>
+    </section>
+
+    <footer class="ultimate-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Hệ Thống Bài Giảng</h4>
+                <ul>
+                    <li>Hình chóp tam giác đều</li>
+                    <li>Hình chóp tứ giác đều</li>
+                    <li>Luyện tập chung</li>
+                    <li>Bài tập nâng cao</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Tham Khảo Nguồn</h4>
+                <ul>
+                    <li>Sách Toán 8 - Cánh Diều</li>
+                    <li>Hệ thống VietJack</li>
+                    <li>Bách khoa toàn thư Wiki</li>
+                    <li>Cộng đồng STEM VN</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Về Dự Án Này</h4>
+                <ul>
+                    <li>Dự án Khoa học Máy tính</li>
+                    <li>Môn: Toán học tích hợp</li>
+                    <li>Deploy: Render Cloud Server</li>
+                    <li>Công nghệ: HTML5, CSS3, JS</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Thông Tin Cá Nhân</h4>
+                <ul>
+                    <li>Người thực hiện: Tùng</li>
+                    <li>Cấp học: Lớp 8</li>
+                    <li>Địa điểm: Thái Nguyên</li>
+                    <li>Năm học: 2025 - 2026</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>WikiMath Ultimate Project. Được lập trình thủ công với kiến trúc mã nguồn siêu dài nhằm mục đích báo cáo chuyên đề STEM.</p>
+            <p style="margin-top: 10px; opacity: 0.5;">Render System Status: Online | Database: Loaded 100% VietJack | UI Version: Ventura Glassmorphism</p>
+        </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Hệ thống Custom Cursor
+            const cursor = document.getElementById('ultimate-cursor');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                let dx = mouseX - cursorX;
+                let dy = mouseY - cursorY;
+                cursorX += dx * 0.2;
+                cursorY += dy * 0.2;
+                cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // 2. Hệ thống Scroll Reveal (Cập nhật bắt cả cta-banner)
+            const cards = document.querySelectorAll('.knowledge-card, .cta-banner');
+
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            cards.forEach(card => {
+                revealOnScroll.observe(card);
+            });
+
+            // 3. Hệ thống Tracking Log chuyên nghiệp (Phục vụ debug Render)
+            console.log("=== THÔNG TIN HỆ THỐNG WIKIMATH ULTIMATE ===");
+            console.log("Tác giả: Tùng - Thái Nguyên");
+            console.log("Chuyên đề: Toán học Không gian (Bài 1 & Bài 2 Cánh Diều)");
+            console.log("Trạng thái tải dữ liệu: Hoàn tất 100%");
+            console.log("Khởi chạy hiệu ứng Glassmorphism: Thành công");
+            console.log("Module Buttons & CTA: Đã kích hoạt");
+            console.log("==========================================");
+        });
+    </script>
 </body>
 </html>
