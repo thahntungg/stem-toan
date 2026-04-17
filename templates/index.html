@@ -571,6 +571,16 @@
     #ultimate-cursor {
         display: none;
     }
+    /* Chặn mọi hiệu ứng trượt trên điện thoại và máy tính bảng */
+@media (max-width: 1024px) {
+    .knowledge-card, 
+    .cta-banner, 
+    .hero-section * {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
     </style>
 </head>
 <body>
