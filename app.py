@@ -4,6 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    # Sửa dòng này (phải có chữ er_template và ngoặc)
     return render_template('index.html')
 
 @app.route('/bai-tap')
