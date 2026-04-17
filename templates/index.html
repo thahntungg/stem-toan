@@ -512,7 +512,65 @@
     .formula-math {
         font-size: 22px;
     }
+    
+/* ==========================================================================
+   TỐI ƯU RIÊNG CHO IPHONE 8 PLUS ĐỔ XUỐNG (MÀN HÌNH < 414px)
+   ========================================================================== */
+@media (max-width: 414px) {
+    /* 1. Cho phép thanh Menu cuộn ngang để không bị nhảy dòng */
+    .glass-nav {
+        height: 55px; /* Giảm chiều cao cho gọn */
+    }
 
+    .glass-nav ul {
+        gap: 10px;
+        padding: 0 15px;
+        width: 100%;
+        overflow-x: auto; /* Tạo thanh cuộn ngang nếu menu quá dài */
+        white-space: nowrap; /* Không cho chữ nhảy xuống dòng */
+        justify-content: flex-start; /* Căn trái để người dùng dễ vuốt */
+        -webkit-overflow-scrolling: touch; /* Vuốt mượt trên iPhone */
+    }
+
+    /* Ẩn thanh cuộn để nhìn cho đẹp */
+    .glass-nav ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    .glass-nav a {
+        font-size: 10px; /* Chữ nhỏ lại một chút */
+        letter-spacing: 0;
+    }
+
+    .nav-btn-highlight {
+        padding: 5px 10px !important;
+        font-size: 10px !important;
+    }
+
+    /* 2. Fix lỗi tiêu đề Hero bị quá to trên iPhone 8/7/6 */
+    .hero-title {
+        font-size: 32px;
+        line-height: 1.1;
+    }
+
+    /* 3. Thu nhỏ các hộp công thức cho đỡ tốn diện tích */
+    .formula-item {
+        padding: 15px;
+    }
+
+    .formula-math {
+        font-size: 18px;
+    }
+
+    /* 4. Giảm bớt padding của container chính */
+    .content-container {
+        padding: 20px 10px;
+    }
+
+    /* 5. Tắt cái Cursor Custom trên điện thoại (vì dùng tay chạm, không có chuột) */
+    #ultimate-cursor {
+        display: none;
+    }
     </style>
 </head>
 <body>
