@@ -443,7 +443,75 @@
             padding-top: 30px;
             max-width: 1100px;
             margin: 0 auto;
+            
         }
+
+        /* ==========================================================================
+   FIX GIAO DIỆN MOBILE (RESPONSIVE)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* 1. Giảm kích thước chữ Hero Section */
+    .hero-title {
+        font-size: 38px;
+        letter-spacing: -1px;
+    }
+    
+    .hero-subtitle {
+        font-size: 18px;
+    }
+
+    /* 2. Thu nhỏ Padding của Card để không bị tràn màn hình */
+    .knowledge-card {
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        border-radius: var(--radius-md);
+    }
+
+    /* 3. Chỉnh lại Menu Nav */
+    .glass-nav ul {
+        gap: 15px;
+    }
+
+    .glass-nav a {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .nav-btn-highlight {
+        padding: 6px 12px !important;
+    }
+
+    /* 4. Chỉnh lại các Section Heading */
+    .section-heading {
+        font-size: 28px;
+    }
+
+    .sub-heading {
+        font-size: 22px;
+    }
+
+    /* 5. Nút bấm action dàn hàng dọc cho dễ bấm */
+    .action-group {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 6. Footer chia làm 2 cột thay vì 4 */
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* 7. Công thức toán học không bị tràn */
+    .formula-math {
+        font-size: 22px;
+    }
 
     </style>
 </head>
