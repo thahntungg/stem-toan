@@ -9,7 +9,7 @@ def index():
 
 @app.route('/bai-tap')
 def baitap():
-    return render_template('baitap.html')
+    return render_template('bai-tap.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
